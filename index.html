@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit de Herramientas — Jornadas Veterinarias 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --violet:    #7030A0;
+    --violet-dk: #4a1f6e;
+    --violet-lt: #F4EEF7;
+    --violet-md: #EAE0F0;
+    --orange:    #E8873A;
+    --orange-lt: #FDF0E6;
+    --dark:      #2D2B2C;
+    --gray:      #555555;
+    --line:      #CCCCCC;
+    --white:     #FFFFFF;
+    --bg:        #F7F5F9;
+    --font:      'Barlow', Calibri, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--dark);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ─────────────────────────────── */
+  .header {
+    background: url('https://i.ibb.co/HTvNFYWM/Somos-Zeta-Fondos-64.png') center center / cover no-repeat;
+    background-color: #1a0a2e;
+    padding: 28px 20px 24px;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(20,6,36,0.45) 0%, rgba(20,6,36,0.15) 100%);
+    pointer-events: none;
+  }
+  .header > * { position: relative; z-index: 1; }
+
+  .header-logo { height: 78px; width: auto; margin-bottom: 16px; display: block; }
+
+  .header-title { font-size: 22px; font-weight: 600; color: white; line-height: 1.25; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 16px; }
+
+  .header-meta {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 12px;
+  }
+  .header-meta span { font-size: 12px; color: rgba(255,255,255,0.55); display: flex; align-items: center; gap: 5px; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: #c9a0e0; }
+
+  /* ── FOOTER GLOBAL ───────────────────────── */
+  .site-footer {
+    background: url('https://i.ibb.co/HTvNFYWM/Somos-Zeta-Fondos-64.png') center center / cover no-repeat;
+    background-color: #1a0a2e;
+    padding: 24px 20px;
+    margin-top: 40px;
+    position: relative;
+  }
+  .site-footer::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(15,5,28,0.55);
+    pointer-events: none;
+  }
+  .site-footer > * { position: relative; z-index: 1; }
+
+  .footer-inner {
+    max-width: 620px; margin: 0 auto;
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 20px;
+    flex-wrap: wrap;
+  }
+  .footer-left { display: flex; flex-direction: column; gap: 10px; }
+  .footer-logo { height: 56px; width: 56px; object-fit: contain; }
+  .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.55; }
+  .footer-tagline strong { color: #b47ee0; font-weight: 600; }
+
+  .footer-right { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  .footer-contact-row {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: rgba(255,255,255,0.8);
+    text-decoration: none;
+  }
+  .footer-contact-row:hover { color: white; }
+  .footer-contact-row img { width: 18px; height: 18px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.7; }
+  .footer-divider {
+    border: none; border-top: 1px solid rgba(255,255,255,0.15);
+    margin: 16px 0 12px; max-width: 620px; margin-left: auto; margin-right: auto;
+    position: relative; z-index: 1;
+  }
+  .footer-copy {
+    text-align: center; font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    max-width: 620px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  /* ── BIENVENIDA ──────────────────────────── */
+  .welcome {
+    background: var(--white);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 18px;
+  }
+  .welcome p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+  .welcome strong { color: var(--violet); font-weight: 600; }
+
+  /* ── TABS ────────────────────────────────── */
+  .tabs {
+    background: var(--white);
+    border-bottom: 1.5px solid var(--line);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 1px 4px rgba(112,48,160,0.08);
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    padding: 14px 16px;
+    font-size: 13px; font-weight: 500; font-family: var(--font);
+    color: var(--gray); white-space: nowrap; cursor: pointer;
+    border: none; border-bottom: 2.5px solid transparent;
+    background: none; transition: color 0.15s, border-color 0.15s;
+  }
+  .tab.active { color: var(--violet); border-bottom-color: var(--violet); }
+
+  /* ── SECCIONES ───────────────────────────── */
+  .section { display: none; padding: 18px 16px 48px; max-width: 620px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* ── LABEL DE SECCIÓN ────────────────────── */
+  .sec-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--violet);
+    margin: 24px 0 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--violet-md); }
+
+  /* ── INTRO BOX ───────────────────────────── */
+  .intro-box {
+    padding: 13px 14px 13px 16px;
+    background: var(--violet-lt);
+    border-left: 4px solid var(--violet);
+    border-radius: 0 6px 6px 0;
+    font-size: 14px; color: var(--violet-dk); line-height: 1.55;
+    margin-bottom: 20px;
+  }
+
+  /* ── TARJETA DE PROMPT ───────────────────── */
+  .prompt-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .prompt-card:hover { border-color: #c9a8e0; }
+
+  .prompt-header {
+    padding: 13px 14px 9px;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .prompt-num {
+    width: 28px; height: 28px; border-radius: 7px;
+    background: var(--violet-lt); color: var(--violet);
+    font-size: 12px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .prompt-num.orange { background: var(--orange-lt); color: var(--orange); }
+
+  .prompt-titles { flex: 1; }
+  .prompt-title { font-size: 14px; font-weight: 600; color: var(--dark); line-height: 1.3; }
+  .prompt-sub { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+  .badge {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+  }
+  .badge-v { background: var(--violet-lt); color: var(--violet); }
+  .badge-o { background: var(--orange-lt); color: var(--orange); }
+  .badge-g { background: #f0eeec; color: var(--gray); }
+
+  .prompt-body { padding: 0 14px 4px; }
+  .prompt-ctx { font-size: 12px; color: var(--gray); font-style: italic; margin-bottom: 8px; line-height: 1.4; }
+
+  .prompt-text {
+    background: var(--violet-lt); border-radius: 7px;
+    padding: 11px 13px; font-size: 14px; line-height: 1.65;
+    color: var(--dark); font-family: var(--font);
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .prompt-text.orange-bg { background: var(--orange-lt); }
+
+  .prompt-footer {
+    padding: 10px 14px 13px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    border-top: 1px solid var(--violet-md); margin-top: 10px;
+  }
+  .prompt-tip { font-size: 11.5px; color: var(--gray); line-height: 1.4; flex: 1; font-style: italic; }
+
+  .copy-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 9px 15px; background: var(--violet);
+    color: white; border: none; border-radius: 7px;
+    font-size: 13px; font-weight: 600; font-family: var(--font);
+    cursor: pointer; transition: background 0.15s, transform 0.1s;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .copy-btn:active { transform: scale(0.97); }
+  .copy-btn.copied { background: var(--violet-dk); }
+  .copy-icon { width: 13px; height: 13px; }
+
+  /* ── HERRAMIENTAS ────────────────────────── */
+  .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .tool-card {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: 10px; padding: 14px 12px;
+    text-decoration: none; display: block; transition: border-color 0.15s;
+  }
+  .tool-card:active { border-color: var(--violet); }
+  .tool-icon { font-size: 22px; margin-bottom: 7px; display: block; }
+  .tool-name { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 3px; }
+  .tool-desc { font-size: 12px; color: var(--gray); line-height: 1.4; }
+  .tier {
+    display: inline-block; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 4px; margin-top: 7px;
+  }
+  .tier-free { background: var(--violet-lt); color: var(--violet); }
+  .tier-paid { background: var(--orange-lt); color: var(--orange); }
+
+  /* ── HOJA DE RUTA ────────────────────────── */
+  .week-card {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: 10px; padding: 15px; margin-bottom: 12px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .week-circle {
+    width: 38px; height: 38px; border-radius: 50%;
+    font-size: 18px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .week-circle.s1 { background: #5A1A80; color: white; }
+  .week-circle.s2 { background: var(--violet); color: white; }
+  .week-circle.s3 { background: #4a1f6e; color: white; }
+  .week-circle.plus { background: var(--violet-lt); color: var(--violet); font-size: 22px; }
+  .week-title { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 5px; }
+  .week-desc { font-size: 13px; color: var(--gray); line-height: 1.5; margin-bottom: 8px; }
+  .week-action {
+    background: var(--violet-lt); border-radius: 6px;
+    padding: 9px 12px; font-size: 13px; color: var(--violet-dk);
+    font-style: italic; line-height: 1.5;
+  }
+  .frase-cierre {
+    background: var(--violet); border-radius: 10px; padding: 20px;
+    text-align: center; margin-top: 20px;
+  }
+  .frase-cierre p { font-size: 16px; font-style: italic; color: white; line-height: 1.5; }
+
+  /* ── CONTACTO ────────────────────────────── */
+  .contact-card {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: 12px; overflow: hidden; margin-bottom: 14px;
+  }
+  .contact-header {
+    background: var(--violet); padding: 16px 18px;
+  }
+  .contact-header h3 { font-size: 16px; font-weight: 600; color: white; margin-bottom: 3px; }
+  .contact-header p { font-size: 13px; color: rgba(255,255,255,0.7); }
+  .contact-body { padding: 16px 18px; }
+  .contact-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0; border-bottom: 1px solid var(--violet-md);
+  }
+  .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .contact-icon {
+    width: 38px; height: 38px; border-radius: 9px;
+    background: var(--violet-lt); color: var(--violet);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 18px;
+  }
+  .contact-label { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+  .contact-value { font-size: 15px; font-weight: 600; color: var(--dark); }
+  .contact-value a { color: var(--violet); text-decoration: none; }
+
+  .pdf-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 14px;
+    background: var(--violet-lt); border: 1.5px solid var(--violet);
+    border-radius: 9px; color: var(--violet);
+    font-size: 14px; font-weight: 600; font-family: var(--font);
+    cursor: pointer; transition: background 0.15s;
+    margin-top: 4px;
+  }
+  .pdf-btn:active { background: var(--violet-md); }
+
+  /* ── NOTEBOOK CARD ───────────────────────── */
+  .notebook-card {
+    background: var(--violet); border-radius: 10px;
+    padding: 18px; color: white; margin-bottom: 20px;
+  }
+  .notebook-card h3 { font-size: 17px; font-weight: 600; color: white; margin-bottom: 6px; }
+  .notebook-card p { font-size: 13px; color: rgba(255,255,255,0.72); line-height: 1.5; margin-bottom: 14px; }
+  .nb-step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 9px; font-size: 13px; color: rgba(255,255,255,0.9); }
+  .nb-num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(255,255,255,0.18); font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* ── TOAST ───────────────────────────────── */
+  .toast {
+    position: fixed; bottom: 22px; left: 50%;
+    transform: translateX(-50%) translateY(70px);
+    background: var(--violet-dk); color: white;
+    padding: 9px 20px; border-radius: 20px;
+    font-size: 13px; font-weight: 500; font-family: var(--font);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 100; white-space: nowrap; pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── PRINT ───────────────────────────────── */
+  @media print {
+    .tabs, .copy-btn, .pdf-btn, .toast { display: none !important; }
+    .section { display: block !important; padding: 0 0 24px; }
+    .header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <img src="https://i.ibb.co/Z1VMrwZj/Somos-Zeta-Exportar-Mesa-de-trabajo-1-copia-3.png" alt="Somos Zeta" class="header-logo">
+  <h1 class="header-title">Kit de herramientas para veterinarios</h1>
+  <p class="header-sub">Jornadas Veterinarias 2026 — Buenos Aires</p>
+  <div class="header-meta">
+    <span><span class="dot"></span>17 y 18 de mayo, 2026</span>
+    <span><span class="dot"></span>Patrocinado por Ceva Salud Animal</span>
+    <span><span class="dot"></span>L. Zequin · Somos Zeta</span>
+  </div>
+</div>
+
+<!-- BIENVENIDA -->
+<div class="welcome">
+  <p>Acá encontrás <strong>todo lo que vimos en la charla</strong>: los prompts listos para usar, las herramientas recomendadas, tu plan de implementación y cómo contactarnos. Guardá esta página o compartila con colegas.</p>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="showTab('prompts', this)">Prompts</button>
+  <button class="tab" onclick="showTab('notebook', this)">NotebookLM</button>
+  <button class="tab" onclick="showTab('herramientas', this)">Herramientas</button>
+  <button class="tab" onclick="showTab('ruta', this)">Tu plan</button>
+  <button class="tab" onclick="showTab('contacto', this)">Contacto</button>
+</div>
+
+<!-- ─── PROMPTS ─────────────────────────────────────────────── -->
+<div class="section active" id="prompts">
+  <div class="intro-box">
+    Tocá el botón <strong>Copiar</strong> en cada prompt, pegalo directo en ChatGPT, Claude o Gemini desde tu celu. Reemplazá los campos entre [ ] con los datos de tu paciente.
+  </div>
+
+  <div class="sec-label">Para comunicarte con clientes</div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num">1</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">Explicar un diagnóstico al dueño</div>
+        <div class="prompt-sub">Mensaje de alta post-consulta</div>
+      </div>
+      <span class="badge badge-v">Básico</span>
+    </div>
+    <div class="prompt-body">
+      <p class="prompt-ctx">Cambiá los campos entre [ ] por los datos reales de tu paciente</p>
+      <div class="prompt-text" id="p1">Soy veterinario de clínica de pequeños animales. Mi paciente es [nombre del animal], [especie], [edad]. Diagnóstico: [diagnóstico]. Le recetamos [tratamiento].
+
+Escribile al dueño un mensaje de alta con instrucciones claras, en lenguaje simple, que pueda seguir en casa. Que sea cálido, sin tecnicismos, y no supere los 8 renglones.</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">El más fácil para empezar esta semana. Cambiás el nombre del paciente y en 20 segundos tenés el mensaje listo.</p>
+      <button class="copy-btn" onclick="copyPrompt('p1', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num">2</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">Respuesta para miedo a tronadas</div>
+        <div class="prompt-sub">Consulta frecuente por WhatsApp — versión base</div>
+      </div>
+      <span class="badge badge-v">Básico</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="p2">Soy veterinario de clínica de pequeños animales. Un cliente me consulta por qué su perro ladra y tiembla cuando hay tronadas.
+
+Escribime una respuesta empática, breve y con un consejo práctico que pueda compartirle por WhatsApp.</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">Prompt base. El siguiente muestra cómo mejora cuando agregás el producto específico.</p>
+      <button class="copy-btn" onclick="copyPrompt('p2', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+
+  <div class="sec-label">Con productos Ceva</div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num orange">3</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">Recomendar Adaptil para tronadas</div>
+        <div class="prompt-sub">Misma consulta, con prescripción concreta</div>
+      </div>
+      <span class="badge badge-o">Ceva</span>
+    </div>
+    <div class="prompt-body">
+      <p class="prompt-ctx">Usalo después del Prompt 2 para ver la diferencia de resultado</p>
+      <div class="prompt-text orange-bg" id="p3">Soy veterinario de clínica de pequeños animales. Un cliente me consulta por qué su perro ladra y tiembla cuando hay tronadas. Le quiero recomendar ADAPTIL difusor como parte del manejo.
+
+Escribime una respuesta empática para WhatsApp que explique de forma simple qué es ADAPTIL, por qué lo recomiendo y cómo lo tiene que usar en casa. Máximo 8 renglones, sin tecnicismos.</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">El mismo esfuerzo, resultado con prescripción concreta y adherencia reforzada.</p>
+      <button class="copy-btn" onclick="copyPrompt('p3', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num orange">4</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">Cliente que no ve resultado con Feliway</div>
+        <div class="prompt-sub">Reforzar adherencia al tratamiento</div>
+      </div>
+      <span class="badge badge-o">Ceva</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text orange-bg" id="p4">Soy veterinario. Le recetamos Feliway difusor a un gato con marcaje por arañazos. El dueño me escribe que "no nota mucha diferencia" después de una semana.
+
+Ayudame a responderle de manera empática, explicando el tiempo de respuesta esperado del producto y dando confianza en el tratamiento. Sin tecnicismos, máximo 6 renglones.</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">Feliway puede tardar entre 7 y 30 días en mostrar resultados completos.</p>
+      <button class="copy-btn" onclick="copyPrompt('p4', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num orange">5</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">Perro con Adaptil y gato en la misma casa</div>
+        <div class="prompt-sub">Oportunidad de prescripción cruzada</div>
+      </div>
+      <span class="badge badge-o">Ceva</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text orange-bg" id="p5">Soy veterinario. Tengo un cliente que usa ADAPTIL collar para su perro. Me pregunta si hay algo para el gato que tiene en casa, que se pone nervioso cuando el perro entra.
+
+Explicame qué le recomendaría y redactame la respuesta como si se la escribiera al cliente por WhatsApp. Lenguaje simple, cálido, sin tecnicismos.</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">La respuesta menciona Feliway para el gato, explicando que son productos para cada especie.</p>
+      <button class="copy-btn" onclick="copyPrompt('p5', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+
+  <div class="sec-label">Para documentar la consulta</div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num">6</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">Historia clínica SOAP desde dictado</div>
+        <div class="prompt-sub">Transcribí la consulta, la IA arma la SOAP</div>
+      </div>
+      <span class="badge badge-g">Documentación</span>
+    </div>
+    <div class="prompt-body">
+      <p class="prompt-ctx">Primero grabá la consulta con el celu, transcribí el audio, después pegá el texto acá</p>
+      <div class="prompt-text" id="p6">Tengo la transcripción de una consulta veterinaria. Organizá esta información como historia clínica en formato SOAP (Subjetivo, Objetivo, Análisis, Plan). Sé claro y conciso en cada sección.
+
+Transcripción: [pegá acá el texto de la consulta]</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">Para transcribir: grabadora del celu → Google Docs con dictado por voz → copiá el texto.</p>
+      <button class="copy-btn" onclick="copyPrompt('p6', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num">7</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">Preguntas frecuentes de un dueño</div>
+        <div class="prompt-sub">Preparate antes de una llamada difícil</div>
+      </div>
+      <span class="badge badge-g">Preparación</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="p7">Soy veterinario. Mi paciente acaba de ser diagnosticado con [diagnóstico]. El dueño es [descripción del perfil: señor mayor, familia con niños, persona muy ansiosa, etc.].
+
+Generá una lista de las 5 preguntas más frecuentes que este dueño me haría, con una respuesta clara y empática para cada una.</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">Ideal para prepararte antes de llamar a un dueño difícil o para armar una FAQ de tu clínica.</p>
+      <button class="copy-btn" onclick="copyPrompt('p7', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num">8</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">Infografía para la sala de espera</div>
+        <div class="prompt-sub">Contenido para Canva en minutos</div>
+      </div>
+      <span class="badge badge-g">Material</span>
+    </div>
+    <div class="prompt-body">
+      <p class="prompt-ctx">El texto que genera lo pegás en Canva con una plantilla → infografía lista en 5 minutos</p>
+      <div class="prompt-text" id="p8">Necesito crear una infografía para el consultorio que explique a los dueños cómo usar el difusor ADAPTIL en casa.
+
+Estructurá el contenido en: 1 título llamativo, 3 pasos numerados con instrucciones simples, 1 consejo importante y 1 frase de cierre motivadora. Lenguaje cálido, sin tecnicismos.</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">Podés cambiar ADAPTIL por Feliway o cualquier otro producto. El formato es el mismo.</p>
+      <button class="copy-btn" onclick="copyPrompt('p8', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NOTEBOOKLM ──────────────────────────────────────────── -->
+<div class="section" id="notebook">
+  <div class="intro-box">
+    NotebookLM es <strong>gratuito</strong> y te permite cargar cualquier PDF — el vademécum de Ceva, tus protocolos — y hacerle preguntas como si fuera un colega que lo leyó todo.
+  </div>
+
+  <div class="notebook-card">
+    <h3>Cómo crear tu cuaderno Ceva</h3>
+    <p>Lo hacés una sola vez. Tardás 3 minutos. Después lo tenés disponible siempre.</p>
+    <div class="nb-step"><div class="nb-num">1</div><span>Entrá a <strong>notebooklm.google.com</strong> con tu cuenta de Google</span></div>
+    <div class="nb-step"><div class="nb-num">2</div><span>Tocá "Nuevo cuaderno" → ponele el nombre <em>Ceva — Feliway & Adaptil</em></span></div>
+    <div class="nb-step"><div class="nb-num">3</div><span>Subí el PDF del vademécum de Ceva (disponible en ceva.com.ar)</span></div>
+    <div class="nb-step"><div class="nb-num">4</div><span>NotebookLM lee el documento y te genera un resumen automático</span></div>
+    <div class="nb-step"><div class="nb-num">5</div><span>Ahora podés escribirle preguntas en el chat y responde citando el documento</span></div>
+  </div>
+
+  <div class="sec-label">Preguntas para hacerle al cuaderno</div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num orange">A</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">¿Cuándo usar spray vs difusor?</div>
+      </div>
+      <span class="badge badge-o">NotebookLM</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text orange-bg" id="nb1">¿En qué situaciones clínicas recomendarías Feliway spray versus el difusor? ¿Qué factores considero para elegir uno u otro?</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">Responde citando el vademécum de Ceva, no información genérica de internet.</p>
+      <button class="copy-btn" onclick="copyPrompt('nb1', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num orange">B</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">Perro ansioso y gato estresado en la misma casa</div>
+      </div>
+      <span class="badge badge-o">NotebookLM</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text orange-bg" id="nb2">¿Qué producto le recomendarías a un cliente que tiene un perro con miedo a los fuegos artificiales y también un gato que se esconde cuando hay visitas?</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">La IA razona sobre dos productos para dos especies al mismo tiempo, citando el documento.</p>
+      <button class="copy-btn" onclick="copyPrompt('nb2', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num orange">C</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">¿Se puede usar junto con medicamentos?</div>
+      </div>
+      <span class="badge badge-o">NotebookLM</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text orange-bg" id="nb3">¿Feliway spray es compatible con tratamiento farmacológico para ansiedad felina? ¿Puedo usarlo junto con benzodiacepinas o antidepresivos?</div>
+    </div>
+    <div class="prompt-footer">
+      <p class="prompt-tip">Responde con la información del documento oficial. Sin improvizar.</p>
+      <button class="copy-btn" onclick="copyPrompt('nb3', this)">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+  </div>
+
+  <div class="sec-label">Bonus — Audio Overview</div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-num" style="background:var(--violet);color:white;font-size:15px;">★</div>
+      <div class="prompt-titles">
+        <div class="prompt-title">Convertí el vademécum en podcast</div>
+        <div class="prompt-sub">Para escuchar entre consultas</div>
+      </div>
+    </div>
+    <div class="prompt-body">
+      <p class="prompt-ctx" style="padding-bottom:12px;margin-bottom:0;">Dentro de tu cuaderno de NotebookLM, tocá el botón <strong>"Audio Overview"</strong>. El sistema genera automáticamente un podcast de dos voces que resume el documento. Sin prompts. Solo un toque.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── HERRAMIENTAS ────────────────────────────────────────── -->
+<div class="section" id="herramientas">
+  <div class="intro-box">
+    Todas tienen <strong>versión gratuita</strong>. Empezá por una sola. No hace falta tener todas al mismo tiempo.
+  </div>
+
+  <div class="sec-label">Gratuitas — empezá acá</div>
+  <div class="tool-grid">
+    <a href="https://chat.openai.com" class="tool-card">
+      <span class="tool-icon">🤖</span>
+      <div class="tool-name">ChatGPT</div>
+      <div class="tool-desc">Asistente general. El más conocido.</div>
+      <span class="tier tier-free">Gratis</span>
+    </a>
+    <a href="https://claude.ai" class="tool-card">
+      <span class="tool-icon">✦</span>
+      <div class="tool-name">Claude</div>
+      <div class="tool-desc">Ideal para mensajes empáticos y cálidos.</div>
+      <span class="tier tier-free">Gratis</span>
+    </a>
+    <a href="https://gemini.google.com" class="tool-card">
+      <span class="tool-icon">⬡</span>
+      <div class="tool-name">Gemini</div>
+      <div class="tool-desc">Funciona con imágenes. Gratuito generoso.</div>
+      <span class="tier tier-free">Gratis</span>
+    </a>
+    <a href="https://notebooklm.google.com" class="tool-card">
+      <span class="tool-icon">📓</span>
+      <div class="tool-name">NotebookLM</div>
+      <div class="tool-desc">Cargás tus PDFs y los consultás.</div>
+      <span class="tier tier-free">Gratis</span>
+    </a>
+  </div>
+
+  <div class="sec-label">Para crear materiales visuales</div>
+  <div class="tool-grid">
+    <a href="https://www.canva.com" class="tool-card">
+      <span class="tool-icon">🎨</span>
+      <div class="tool-name">Canva</div>
+      <div class="tool-desc">Infografías con plantillas en minutos.</div>
+      <span class="tier tier-free">Gratis</span>
+    </a>
+    <a href="https://www.mentimeter.com" class="tool-card">
+      <span class="tool-icon">📊</span>
+      <div class="tool-name">Mentimeter</div>
+      <div class="tool-desc">Encuestas en tiempo real con el celu.</div>
+      <span class="tier tier-free">Gratis</span>
+    </a>
+  </div>
+
+  <div class="sec-label">El paso siguiente — planes pagos</div>
+  <div class="tool-grid">
+    <div class="tool-card">
+      <span class="tool-icon">⚡</span>
+      <div class="tool-name">ChatGPT Plus</div>
+      <div class="tool-desc">Asistente personalizado para tu clínica.</div>
+      <span class="tier tier-paid">~USD 20/mes</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-icon">✦</span>
+      <div class="tool-name">Claude Pro</div>
+      <div class="tool-desc">Contexto permanente de tu clínica.</div>
+      <span class="tier tier-paid">~USD 20/mes</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── HOJA DE RUTA ────────────────────────────────────────── -->
+<div class="section" id="ruta">
+  <div class="intro-box">
+    No intentes todo al mismo tiempo. <strong>Una cosa por semana</strong> es suficiente para transformar tu práctica en un mes.
+  </div>
+
+  <div class="week-card">
+    <div class="week-circle s1">1</div>
+    <div>
+      <div class="week-title">El próximo mensaje difícil a un dueño</div>
+      <div class="week-desc">La próxima vez que tengas que comunicar algo difícil, abrís ChatGPT o Claude primero. Escribís el prompt, leés el resultado, lo ajustás y lo mandás.</div>
+      <div class="week-action">Tarea: usá el Prompt 1 de esta página con un caso real. Son 3 minutos.</div>
+    </div>
+  </div>
+
+  <div class="week-card">
+    <div class="week-circle s2">2</div>
+    <div>
+      <div class="week-title">Tu primer cuaderno en NotebookLM</div>
+      <div class="week-desc">Cargás el vademécum de Ceva o un protocolo tuyo en PDF. Le hacés 3 preguntas reales desde el cuaderno.</div>
+      <div class="week-action">Tarea: seguí los 5 pasos de la pestaña NotebookLM y hacé las preguntas A, B y C.</div>
+    </div>
+  </div>
+
+  <div class="week-card">
+    <div class="week-circle s3">3</div>
+    <div>
+      <div class="week-title">Una consulta dictada y convertida en SOAP</div>
+      <div class="week-desc">Grabás una consulta con el celu, transcribís el audio y pedís la historia clínica en SOAP. Medís cuánto tiempo te ahorrás.</div>
+      <div class="week-action">Tarea: usá el Prompt 6 de esta página con una consulta real.</div>
+    </div>
+  </div>
+
+  <div class="week-card" style="border-color:#c9a8e0;background:var(--violet-lt);">
+    <div class="week-circle plus">+</div>
+    <div>
+      <div class="week-title">El paso siguiente cuando estés listo</div>
+      <div class="week-desc">Un asistente con el nombre de tu clínica, tus protocolos y tu forma de comunicarte. Se configura una vez y queda disponible siempre.</div>
+      <div class="week-action">Inversión: ~USD 20/mes. Tiempo ahorrado: 30-45 minutos de administración por día.</div>
+    </div>
+  </div>
+
+  <div class="frase-cierre">
+    <p>"La IA no va a reemplazar al veterinario que sabe usarla.<br>Va a reemplazar al que no."</p>
+  </div>
+</div>
+
+<!-- ─── CONTACTO ─────────────────────────────────────────────── -->
+<div class="section" id="contacto">
+  <div class="intro-box">
+    Si tenés preguntas, querés seguir practicando con ayuda, o te interesa implementar estas herramientas en tu clínica — escribinos. Respondemos.
+  </div>
+
+  <img
+    src="https://i.ibb.co/5g2Jw3Cr/Gemini-Generated-Image-cud956cud956cud9.png"
+    alt="Somos Zeta — Jornadas Veterinarias 2026"
+    style="width:100%;border-radius:12px;margin-bottom:16px;display:block;"
+  >
+
+  <div class="contact-card">
+    <div class="contact-header">
+      <h3>Somos Zeta Digital Advice</h3>
+      <p>Consultoría en transformación digital para profesionales y organizaciones</p>
+    </div>
+    <div class="contact-body">
+      <div class="contact-row">
+        <div class="contact-icon">🌐</div>
+        <div>
+          <div class="contact-label">Web</div>
+          <div class="contact-value"><a href="https://www.somos-zeta.com" target="_blank">www.somos-zeta.com</a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">📱</div>
+        <div>
+          <div class="contact-label">WhatsApp</div>
+          <div class="contact-value"><a href="https://wa.me/5493496460513" target="_blank">+54 9 3496 460513</a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">📸</div>
+        <div>
+          <div class="contact-label">Instagram</div>
+          <div class="contact-value"><a href="https://instagram.com/somoszeta_da" target="_blank">@somoszeta_da</a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">🎵</div>
+        <div>
+          <div class="contact-label">TikTok</div>
+          <div class="contact-value"><a href="https://tiktok.com/@somoszeta.lab" target="_blank">@somoszeta.lab</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-label">Guardá esta página</div>
+
+  <button class="pdf-btn" onclick="window.print()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Guardar como PDF
+  </button>
+
+  <p style="text-align:center;font-size:12px;color:var(--gray);margin-top:14px;line-height:1.6;">
+    Tocá el botón, elegí <strong>"Guardar como PDF"</strong> en las opciones de impresión de tu celu.<br>
+    O compartí esta página directamente con colegas por WhatsApp.
+  </p>
+</div>
+
+<!-- ─── FOOTER GLOBAL ──────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="https://i.ibb.co/md64NQ2/Somos-Zeta-Exportar-Mesa-de-trabajo-1-copia-16.png" alt="Somos Zeta" class="footer-logo">
+      <p class="footer-tagline">Tecnología que <strong>ACERCA</strong>.<br>Soluciones que <strong>TRANSFORMAN</strong>.</p>
+    </div>
+    <div class="footer-right">
+      <a href="https://www.somos-zeta.com" target="_blank" class="footer-contact-row">
+        <img src="https://i.ibb.co/md64NQ2/Somos-Zeta-Exportar-Mesa-de-trabajo-1-copia-16.png" alt="web">
+        www.somos-zeta.com
+      </a>
+      <a href="https://wa.me/5493496460513" target="_blank" class="footer-contact-row">
+        <img src="https://i.ibb.co/v62Qngvh/Somos-Zeta-Exportar-Mesa-de-trabajo-1-copia-15.png" alt="whatsapp">
+        +54 9 3496 460513
+      </a>
+      <a href="https://instagram.com/somoszeta_da" target="_blank" class="footer-contact-row">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,0.7)" stroke="none"/></svg>
+        @somoszeta_da
+      </a>
+      <a href="https://tiktok.com/@somoszeta.lab" target="_blank" class="footer-contact-row">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(255,255,255,0.7)"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.75a8.2 8.2 0 0 0 4.79 1.53V6.85a4.85 4.85 0 0 1-1.03-.16z"/></svg>
+        @somoszeta.lab
+      </a>
+    </div>
+  </div>
+  <hr class="footer-divider">
+  <p class="footer-copy">Material desarrollado para las Jornadas Veterinarias 2026 · Con el apoyo de Ceva Salud Animal</p>
+</footer>
+
+<div class="toast" id="toast">Prompt copiado ✓</div>
+
+<script>
+  function showTab(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function copyPrompt(id, btn) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.innerHTML;
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      showToast();
+      setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2200);
+    });
+  }
+
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  }
+</script>
+</body>
+</html>
